@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-#include "ILibLoader.h"
+#include "LibLoader.h"
 #include "OpenCLWrapper.h"
 
 #ifdef USE_OPENCL_WRAPPER
