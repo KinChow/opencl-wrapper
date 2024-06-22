@@ -28,8 +28,6 @@ set(OPENCL_HEADER_DIR ${PROJECT_SOURCE_DIR}/include)
 set(LIBLOADER_DIR ${PROJECT_SOURCE_DIR}/external/lib-loader)
 aux_source_directory(${PROJECT_SOURCE_DIR}/src OPENCL_WRAPPER_SRC_DIR)
 
-add_definitions(-DUSE_OPENCL_WRAPPER=1)
-
 add_subdirectory(${LIBLOADER_DIR})
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
@@ -39,6 +37,7 @@ else()
 endif()
 
 if (BUILD_LIBRARY)
+    add_definitions(-DUSE_OPENCL_WRAPPER=1)
     set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/output)
     include_directories(
         ${OPENCL_HEADER_DIR}
@@ -53,6 +52,7 @@ else()
     target_include_directories(${PROJECT_NAME} INTERFACE ${OPENCL_HEADER_DIR})
     target_sources(${PROJECT_NAME} INTERFACE ${OPENCL_WRAPPER_SRC_DIR})
     target_link_libraries(${PROJECT_NAME} INTERFACE LibLoader)
+    target_compile_definitions(${PROJECT_NAME} INTERFACE -DUSE_OPENCL_WRAPPER=1)
 endif()
 
 option(ENABLE_EXAMPLE "Enable examples of OpenCLWrapper." OFF)
